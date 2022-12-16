@@ -24,7 +24,7 @@ watch(search, cb => {
         <input v-model.trim="search" type="text" placeholder="Search...">
       </header>
       <div class="options-container">
-        <TransitionGroup name="card">
+        <TransitionGroup name="card" appear>
           <CardComoponent 
             v-for="quiz in quizes" 
             :key="quiz.id" 
@@ -74,15 +74,18 @@ header input {
 /*CARD */
 
 .card-enter-from {
+  opacity: 0;
+  transform: translateY(-25px);
+}
+.card-enter-to{
 
 }
-
 .card-leave-to {
 
 }
 
 .card-enter-active,
 .card-leave-active{
-  
+transition: all 0.5s ease;
 }
 </style>
