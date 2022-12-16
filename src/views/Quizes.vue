@@ -24,7 +24,13 @@ watch(search, cb => {
         <input v-model.trim="search" type="text" placeholder="Search...">
       </header>
       <div class="options-container">
-        <CardComoponent v-for="quiz in quizes" :key="quiz.id" :quiz="quiz"/>
+        <TransitionGroup name="card">
+          <CardComoponent 
+            v-for="quiz in quizes" 
+            :key="quiz.id" 
+            :quiz="quiz"
+          />
+        </TransitionGroup>
           <!-- <div v-for="quize in quizes" :key="quize.id" class="card">
           <img :src="quize.img" :alt="quize.name">
           <div class="card-text">
@@ -65,4 +71,18 @@ header input {
   margin-top: 50px ;
 }
 
+/*CARD */
+
+.card-enter-from {
+
+}
+
+.card-leave-to {
+
+}
+
+.card-enter-active,
+.card-leave-active{
+  
+}
 </style>
