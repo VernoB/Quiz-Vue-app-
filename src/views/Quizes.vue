@@ -1,5 +1,6 @@
 <script setup>
-import {RouterLink} from 'vue-router';
+// import {RouterLink} from 'vue-router';
+import gsap from 'gsap'
 
 import CardComoponent from '../components/Card.vue'
 import q from '../data/quizes.json';
@@ -14,6 +15,21 @@ watch(search, cb => {
  })
 })
 
+const beforeEnter =(el) => { 
+//.card-enter-from
+  el.style.opacity = 0;
+  el.style.transform = "translateY(-100px)";
+}
+
+const enter = (el, done) => {
+  //.car-enter-to
+  gsap.to(el, {
+    opacity: 1,
+    y: 0,
+    duration: 0.3,
+    delay: el.dataset.index * 0.3
+  })
+}
 </script> 
 
 
@@ -24,11 +40,16 @@ watch(search, cb => {
         <input v-model.trim="search" type="text" placeholder="Search...">
       </header>
       <div class="options-container">
-        <TransitionGroup name="card" appear>
+        <TransitionGroup appear
+          @before-enter="beforeEnter"
+          @enter="enter"
+          class="card"
+        >
           <CardComoponent 
-            v-for="quiz in quizes" 
+            v-for="(quiz, index) in quizes" 
             :key="quiz.id" 
             :quiz="quiz"
+            :data-index="index"
           />
         </TransitionGroup>
           <!-- <div v-for="quize in quizes" :key="quize.id" class="card">
@@ -73,19 +94,4 @@ header input {
 
 /*CARD */
 
-.card-enter-from {
-  opacity: 0;
-  transform: translateY(-25px);
-}
-.card-enter-to{
-
-}
-.card-leave-to {
-
-}
-
-.card-enter-active,
-.card-leave-active{
-transition: all 0.5s ease;
-}
 </style>
